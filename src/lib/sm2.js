@@ -20,6 +20,40 @@ export function dueCount(deck) {
   return (deck || []).filter(isDue).length
 }
 
+export function deckStats(deck) {
+  let fresh = 0
+  let due = 0
+  for (const card of deck || []) {
+    if (!isDue(card)) continue
+    if ((card.srs?.reps ?? 0) === 0) fresh += 1
+    else due += 1
+  }
+  return { fresh, due, total: fresh + due }
+}
+
+export function estimateSessionMinutes(deck) {
+  const { total } = deckStats(deck)
+  return Math.max(1, Math.ceil((total * 10) / 60))
+}
+
+export function loadByDay(deck, days = 7) {
+  const counts = new Array(days).fill(0)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const todayMs = today.getTime()
+  for (const card of deck || []) {
+    const due = card.srs?.due
+    if (typeof due !== 'number') continue
+    if (due <= todayMs) {
+      counts[0] += 1
+      continue
+    }
+    const idx = Math.floor((due - todayMs) / DAY_MS)
+    if (idx > 0 && idx < days) counts[idx] += 1
+  }
+  return counts
+}
+
 export function nextDueDate(state) {
   return new Date(state.due).toLocaleDateString('es-ES', {
     day: 'numeric',

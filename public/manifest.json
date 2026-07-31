@@ -6,11 +6,28 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#0a111f",
+  "theme_color": "#0a111f",
   "lang": "es",
   "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Iniciar Repaso",
+      "short_name": "Repaso",
+      "description": "Revisa tus tarjetas pendientes de repaso espaciado",
+      "url": "/?tab=deck",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Rutina de hoy",
+      "short_name": "Rutina",
+      "description": "Tu plan diario de hábitos",
+      "url": "/?tab=tracker",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
   "icons": [
     {
       "src": "/icons/icon-192.png",

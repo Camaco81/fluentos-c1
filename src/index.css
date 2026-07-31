@@ -3,6 +3,31 @@
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     Roboto, sans-serif;
+
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+
+  --color-abyss: #0a111f;
+  --color-abyss-2: #0f1a2e;
+  --color-abyss-3: #15233c;
+  --color-surface: #101b30;
+  --color-surface-2: #16233c;
 }
 
 html,
@@ -12,7 +37,12 @@ body,
 }
 
 body {
-  background-color: #0f172a;
+  background-color: var(--color-abyss);
+  background-image:
+    radial-gradient(60rem 60rem at 110% -10%, rgba(20, 184, 166, 0.09), transparent),
+    radial-gradient(50rem 50rem at -20% 35%, rgba(245, 158, 11, 0.06), transparent),
+    linear-gradient(180deg, #0a111f 0%, #0c1424 100%);
+  background-attachment: fixed;
   color: #f1f5f9;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -20,8 +50,10 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 26, 46, 0.72);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 ::-webkit-scrollbar {
@@ -34,8 +66,39 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3);
+  background: rgba(148, 163, 184, 0.35);
   border-radius: 9999px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.3s ease-out both;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop {
+  animation: pop 0.25s ease-out;
 }
 
 @keyframes toast-in {
@@ -51,4 +114,12 @@ body {
 
 .toast-in {
   animation: toast-in 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .pop,
+  .toast-in {
+    animation: none;
+  }
 }

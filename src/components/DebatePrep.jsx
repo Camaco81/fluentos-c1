@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { MessagesSquare, Send, Sparkles } from 'lucide-react'
-import { useApp } from '../hooks/useApp'
+import { useGemini } from '../hooks/useGemini'
+import { useDeck } from '../hooks/useDeck'
+import { useToast } from '../hooks/useToast'
 
 const FALLBACK_TOPIC =
   'Tema: ¿El trabajo remoto destruye la cultura corporativa o potencia la productividad?'
 
 export default function DebatePrep() {
-  const { callGemini, deck, showToast } = useApp()
+  const { callGemini } = useGemini()
+  const { deck } = useDeck()
+  const showToast = useToast()
   const [topic, setTopic] = useState('Selecciona "Generar Tema"')
   const [generating, setGenerating] = useState(false)
   const [sending, setSending] = useState(false)
@@ -69,7 +73,7 @@ export default function DebatePrep() {
       <div className="space-y-6">
         <div className="space-y-4 rounded-2xl border border-slate-700/60 bg-slate-800/60 p-6 shadow-xl">
           <h2 className="flex items-center gap-2 text-lg font-bold text-white">
-            <MessagesSquare className="h-5 w-5 text-emerald-400" /> Preparación Episoden
+            <MessagesSquare className="h-5 w-5 text-brand-400" /> Preparación Episoden
           </h2>
           <p className="text-xs text-slate-400">
             Genera temas de conversación avanzada para tus sesiones de 8:15 AM.
@@ -78,7 +82,7 @@ export default function DebatePrep() {
             type="button"
             onClick={generateTopic}
             disabled={generating}
-            className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-emerald-500/10 transition hover:from-emerald-600 hover:to-teal-700 disabled:opacity-60"
+            className="w-full rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-brand-500/10 transition hover:from-brand-400 hover:to-brand-500 disabled:opacity-60"
           >
             {generating ? 'Generando tema C1 con Gemini...' : '🎲 Generar Tema de Debate C1'}
           </button>
@@ -96,13 +100,13 @@ export default function DebatePrep() {
               targetWords.map((word) => (
                 <span
                   key={word}
-                  className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-300"
+                  className="rounded-lg border border-brand-500/30 bg-brand-500/10 px-2.5 py-1 text-xs font-semibold text-brand-300"
                 >
                   {word}
                 </span>
               ))
             ) : (
-              <span className="rounded-lg border border-slate-600 bg-slate-700 px-2.5 py-1 text-xs text-emerald-300">
+              <span className="rounded-lg border border-slate-600 bg-slate-700 px-2.5 py-1 text-xs text-brand-300">
                 Ninguna palabra aún
               </span>
             )}
@@ -126,7 +130,7 @@ export default function DebatePrep() {
               key={idx}
               className={
                 message.role === 'user'
-                  ? 'ml-6 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-emerald-200'
+                  ? 'ml-6 rounded-xl border border-brand-500/20 bg-brand-500/10 p-3 text-brand-200'
                   : 'mr-6 rounded-xl border border-slate-800 bg-slate-900/80 p-3 text-slate-300'
               }
             >
@@ -135,7 +139,7 @@ export default function DebatePrep() {
           ))}
           {sending && (
             <div className="mr-6 rounded-xl border border-slate-800 bg-slate-900/80 p-3 text-slate-400">
-              <Sparkles className="mr-1 inline h-3 w-3 animate-pulse text-emerald-400" />
+              <Sparkles className="mr-1 inline h-3 w-3 animate-pulse text-brand-400" />
               Escribiendo...
             </div>
           )}
@@ -149,14 +153,15 @@ export default function DebatePrep() {
             onKeyDown={(e) => {
               if (e.key === 'Enter') sendMessage()
             }}
+            aria-label="Escribe tu argumento en inglés"
             placeholder="Escribe tu argumento en inglés..."
-            className="flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:border-emerald-500 focus:outline-none"
+            className="flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:border-brand-500 focus:outline-none"
           />
           <button
             type="button"
             onClick={sendMessage}
             disabled={sending}
-            className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-emerald-600 disabled:opacity-60"
+            className="flex items-center gap-1.5 rounded-xl bg-brand-500 px-4 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-brand-400 disabled:opacity-60"
           >
             <Send className="h-3.5 w-3.5" /> Enviar
           </button>

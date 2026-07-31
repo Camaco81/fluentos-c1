@@ -1,12 +1,13 @@
-const CACHE_NAME = 'fluentos-v1'
+const CACHE_NAME = 'fluentos-v2'
 const APP_SHELL = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/favicon.svg',
+  '/favicon.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/maskable-512.png',
+  '/icons/apple-touch-icon.png',
 ]
 
 self.addEventListener('install', (event) => {

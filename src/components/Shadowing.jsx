@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Mic, Shuffle, Volume2 } from 'lucide-react'
-import { useApp } from '../hooks/useApp'
+import { useToast } from '../hooks/useToast'
 import { createSpeechRecognizer, speak, wordSimilarity } from '../services/speech'
 
 const SAMPLE_SENTENCES = [
@@ -11,7 +11,7 @@ const SAMPLE_SENTENCES = [
 ]
 
 export default function Shadowing() {
-  const { showToast } = useApp()
+  const showToast = useToast()
   const [sentence, setSentence] = useState(SAMPLE_SENTENCES[0])
   const [isRecording, setIsRecording] = useState(false)
   const [result, setResult] = useState(null)
@@ -75,7 +75,7 @@ export default function Shadowing() {
         <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
           <div>
             <h2 className="flex items-center gap-2 text-xl font-bold text-white">
-              <Mic className="h-5 w-5 text-emerald-400" /> Shadowing Studio (08:00 AM Routine)
+              <Mic className="h-5 w-5 text-brand-400" /> Shadowing Studio (08:00 AM Routine)
             </h2>
             <p className="text-xs text-slate-400">
               Entrena tu pronunciación C1. Escucha el audio nativo y repítelo con el micrófono.
@@ -98,7 +98,7 @@ export default function Shadowing() {
             <button
               type="button"
               onClick={() => speak(sentence)}
-              className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/20 px-4 py-2 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/30"
+              className="flex items-center gap-2 rounded-xl border border-brand-500/30 bg-brand-500/20 px-4 py-2 text-xs font-semibold text-brand-300 transition hover:bg-brand-500/30"
             >
               <Volume2 className="h-4 w-4" /> Escuchar Nativo
             </button>
@@ -113,7 +113,7 @@ export default function Shadowing() {
             className={`flex h-20 w-20 items-center justify-center rounded-full text-2xl shadow-xl transition active:scale-95 ${
               isRecording
                 ? 'animate-pulse bg-red-500 text-white shadow-red-500/30'
-                : 'bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 shadow-emerald-500/20 hover:scale-105'
+                : 'bg-gradient-to-tr from-brand-500 to-brand-400 text-slate-950 shadow-brand-500/20 hover:scale-105'
             }`}
           >
             <Mic className="h-8 w-8" />
@@ -132,8 +132,8 @@ export default function Shadowing() {
               <span
                 className={`rounded border px-2 py-0.5 font-bold ${
                   result.accuracy > 70
-                    ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
-                    : 'border-amber-500/20 bg-amber-500/10 text-amber-400'
+                    ? 'border-brand-500/20 bg-brand-500/10 text-brand-400'
+                    : 'border-gold-500/20 bg-gold-500/10 text-gold-400'
                 }`}
               >
                 Precisión: {result.accuracy}%
